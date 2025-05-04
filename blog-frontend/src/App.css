@@ -1,0 +1,921 @@
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Wrapper để footer luôn ở dưới */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Header */
+.header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem;
+  width: 1525px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.5s ease;
+  text-decoration: none;
+}
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.menu {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.menu a:hover {
+  color: #3498db;
+  border-bottom: 3px solid white;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Thanh tìm kiếm */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  border: 1px solid #ffffff33;
+  border-radius: 20px;
+  outline: none;
+  background-color: #ffffff1a;
+  color: white;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.search-bar::placeholder {
+  color: #ffffff99;
+}
+
+.search-bar:hover {
+  background-color: #ffffff33;
+}
+
+.search-bar:focus {
+  width: 250px;
+  border-color: #3498db;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+}
+
+.search-bar:focus::placeholder {
+  color: #666;
+}
+
+/* Icon tìm kiếm */
+.search-icon {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  pointer-events: none;
+}
+
+.search-icon.active {
+  opacity: 1;
+}
+
+.search-icon svg {
+  width: 16px;
+  height: 16px;
+  color: #ffffff99;
+}
+
+.search-bar:focus + .search-icon svg,
+.search-icon.active svg {
+  color: #3498db;
+}
+
+.hotline {
+  font-size: 0.9rem;
+}
+
+/* Icon tài khoản */
+.account-btn {
+  background-color: #3498db; /* Nền xanh lam giống hình ảnh */
+  color: white;
+  border: none;
+  padding: 0;
+  border-radius: 50%; /* Bo tròn nút */
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.account-btn:hover {
+  background-color: #2980b9;
+  transform: scale(1.1);
+}
+
+.account-icon {
+  width: 24px;
+  height: 24px;
+  color: white; /* Icon màu trắng */
+}
+
+/* Hộp thoại tài khoản */
+.account-container {
+  position: relative;
+}
+
+.account-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  z-index: 10;
+  animation: slideDown 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.account-dropdown .user-info {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.account-dropdown .user-info p {
+  margin: 0;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.account-dropdown button,
+.account-dropdown a {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.account-dropdown button:hover,
+.account-dropdown a:hover {
+  background-color: #f4f4f9;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Poster Carousel */
+.poster-carousel {
+  position: relative;
+  margin-bottom: 2rem;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.poster-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.poster-image.active {
+  opacity: 1;
+}
+
+.poster-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff80;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #3498db;
+}
+
+/* Post grid (Danh sách bài viết dạng lưới 2x2) */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Post card (dùng cho Home và ManagePosts) */
+.post-card {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 30px;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.post-image {
+  width: 150px;
+  height: 225px;
+  object-fit: cover;
+}
+
+.post-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+.post-title-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.post-title-link:hover {
+  color: #3498db;
+}
+
+.post-content p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.post-content p strong {
+  color: #333;
+}
+
+.post-content a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.post-content a:hover {
+  text-decoration: underline;
+}
+
+/* Tin tức nổi bật */
+.news-section {
+  margin-top: 3rem;
+}
+
+.news-list {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.news-item {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.news-image {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+.news-title-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.news-title-link:hover {
+  color: #3498db;
+}
+
+.news-content p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+.news-content a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.news-content a:hover {
+  text-decoration: underline;
+}
+
+/* Nút Xóa (trong ManagePosts) */
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Post Detail */
+.post-detail {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.post-detail img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.post-detail p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+.post-detail p strong {
+  color: #333;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: 2rem;
+}
+
+.comment {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.comment-form {
+  margin-top: 2rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.comment-form button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.comment-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Form (AddPost) */
+form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+form div {
+  margin-bottom: 1rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+form textarea {
+  height: 150px;
+}
+
+form button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #2980b9;
+}
+
+/* Add Post Link (ManagePosts) */
+.add-post-link {
+  margin-bottom: 1.5rem;
+}
+
+.add-post-link button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-post-link button:hover {
+  background-color: #27ae60;
+}
+
+/* Contact Page */
+.contact-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.contact-info {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 300px;
+}
+
+.contact-info h2 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.contact-info p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+.contact-form {
+  flex: 2;
+  min-width: 300px;
+}
+
+.contact-form h2 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+/* About Page */
+.about-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-content {
+  flex: 2;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+}
+
+.about-content h2,
+.about-content h3 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.about-content p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+.about-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 2rem 1rem;
+  margin-top: 2rem;
+}
+
+.footer-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.footer-info {
+  flex: 2;
+  min-width: 300px;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-info p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #ffffffcc;
+}
+
+.footer-info p strong {
+  color: white;
+}
+
+.footer-links {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-links h3 {
+  margin-bottom: 1rem;
+  color: #3498db;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links ul li {
+  margin: 0.5rem 0;
+}
+
+.footer-links ul li a {
+  color: #ffffffcc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #3498db;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: filter 0.3s;
+}
+
+.social-icon svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.social-icon.facebook {
+  background-color: #3b5998;
+}
+
+.social-icon.instagram {
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976);
+}
+
+.social-icon.tiktok {
+  background-color: #000000;
+}
+
+.social-icon.email {
+  background-color: #2ecc71;
+}
+
+.social-icon:hover {
+  filter: brightness(1.2);
+}
+
+.footer-widget {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-widget h3 {
+  margin-bottom: 1rem;
+  color: #3498db;
+}
+
+.event-card {
+  background-color: #ffffff1a;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.event-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.event-card p {
+  color: #ffffffcc;
+  margin-bottom: 0.5rem;
+}
+
+.event-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.event-link:hover {
+  text-decoration: underline;
+}
+
+/* Auth Pages (Login/Register) */
+.auth-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.auth-container form div {
+  margin-bottom: 1rem;
+}
+
+.auth-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.auth-container button {
+  width: 100%;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+  background-color: #2980b9;
+}
+
+.auth-container p {
+  margin-top: 1rem;
+  text-align: center;
+  color: #666;
+}
+
+.auth-container p a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.auth-container p a:hover {
+  text-decoration: underline;
+}
+
+.auth-container .error {
+  color: #e74c3c;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.auth-container .success {
+  color: #2ecc71;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 200px;
+  }
+
+  .poster-carousel {
+    height: auto;
+    max-height: 400px;
+  }
+}
+
+.access-denied {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.access-denied h2 {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.access-denied p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.access-denied a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.access-denied a:hover {
+  text-decoration: underline;
+}
