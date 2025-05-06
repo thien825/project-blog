@@ -36,26 +36,33 @@ function ManagePosts() {
       </div>
       <h2>Danh sách bài viết</h2>
       {posts.length > 0 ? (
-        posts.map(post => (
-          <div key={post.id} className="post-card">
-            {post.image_url && <img src={post.image_url} alt={post.title} className="post-image" />}
-            <div className="post-content">
-              <h3>
-                <Link to={`/post/${post.id}`} className="post-title-link">{post.title}</Link>
-              </h3>
-              <p>{post.content.substring(0, 100)}... <Link to={`/post/${post.id}`}>Xem thêm</Link></p>
-              <p><strong>Tác giả:</strong> {post.author}</p>
-              <p><strong>Danh mục:</strong> {post.category}</p>
-              {post.rating > 0 && <p><strong>Đánh giá:</strong> {post.rating}/10</p>}
-              {post.director && <p><strong>Đạo diễn:</strong> {post.director}</p>}
-              {post.book_author && <p><strong>Tác giả sách:</strong> {post.book_author}</p>}
-              {post.release_year && <p><strong>Năm phát hành:</strong> {post.release_year}</p>}
-              {post.genre && <p><strong>Thể loại:</strong> {post.genre}</p>}
-              <p><strong>Ngày đăng:</strong> {new Date(post.created_at).toLocaleDateString()}</p>
-              <button onClick={() => handleDelete(post.id)} className="delete-btn">Xóa</button>
+        <div className="post-grid">
+          {posts.map(post => (
+            <div key={post.id} className="post-card">
+              {post.image_url && <img src={post.image_url} alt={post.title} className="post-image" />}
+              <div className="post-content">
+                <h3>
+                  <Link to={`/post/${post.id}`} className="post-title-link">{post.title}</Link>
+                </h3>
+                <p>{post.content.substring(0, 100)}... <Link to={`/post/${post.id}`}>Xem thêm</Link></p>
+                <p><strong>Tác giả:</strong> {post.author}</p>
+                <p><strong>Danh mục:</strong> {post.category}</p>
+                {post.rating > 0 && <p><strong>Đánh giá:</strong> {post.rating}/10</p>}
+                {post.director && <p><strong>Đạo diễn:</strong> {post.director}</p>}
+                {post.book_author && <p><strong>Tác giả sách:</strong> {post.book_author}</p>}
+                {post.release_year && <p><strong>Năm phát hành:</strong> {post.release_year}</p>}
+                {post.genre && <p><strong>Thể loại:</strong> {post.genre}</p>}
+                <p><strong>Ngày đăng:</strong> {new Date(post.created_at).toLocaleDateString()}</p>
+                <div className="post-actions">
+                  <Link to={`/edit-post/${post.id}`}>
+                    <button className="update-btn">Cập nhật</button>
+                  </Link>
+                  <button onClick={() => handleDelete(post.id)} className="delete-btn">Xóa</button>
+                </div>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
         <p>Chưa có bài viết nào.</p>
       )}

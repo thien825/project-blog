@@ -145,11 +145,11 @@ main {
 
 /* Icon tài khoản */
 .account-btn {
-  background-color: #3498db; /* Nền xanh lam giống hình ảnh */
+  background-color: #3498db;
   color: white;
   border: none;
   padding: 0;
-  border-radius: 50%; /* Bo tròn nút */
+  border-radius: 50%;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -168,7 +168,7 @@ main {
 .account-icon {
   width: 24px;
   height: 24px;
-  color: white; /* Icon màu trắng */
+  color: white;
 }
 
 /* Hộp thoại tài khoản */
@@ -279,6 +279,70 @@ main {
   background-color: #3498db;
 }
 
+/* Post section */
+.post-section {
+  margin-top: 2rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Post header */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.post-section h2 {
+  font-size: 2rem;
+  color: #436f9a;
+  margin-bottom: 0;
+}
+
+/* Filter section */
+.filter-section {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.filter-group select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.filter-group select:hover {
+  border-color: #3498db;
+  background-color: #f4f4f9;
+}
+
+.filter-group select:focus {
+  border-color: #3498db;
+  outline: none;
+  background-color: white;
+}
+
 /* Post grid (Danh sách bài viết dạng lưới 2x2) */
 .post-grid {
   display: grid;
@@ -289,12 +353,13 @@ main {
 /* Post card (dùng cho Home và ManagePosts) */
 .post-card {
   display: flex;
-  background-color: white;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
 .post-card:hover {
@@ -311,6 +376,41 @@ main {
 .post-content {
   padding: 1rem;
   flex: 1;
+}
+
+.post-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.update-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update-btn:hover {
+  background-color: #27ae60;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
 }
 
 .post-title-link {
@@ -349,6 +449,16 @@ main {
 /* Tin tức nổi bật */
 .news-section {
   margin-top: 3rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.news-section h2 {
+  font-size: 2rem;
+  color: #436f9a;
+  margin-bottom: 1.5rem;
 }
 
 .news-list {
@@ -359,9 +469,9 @@ main {
 
 .news-item {
   display: flex;
-  background-color: white;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   width: 100%;
   max-width: 400px;
@@ -410,22 +520,6 @@ main {
 
 .news-content a:hover {
   text-decoration: underline;
-}
-
-/* Nút Xóa (trong ManagePosts) */
-.delete-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.3s;
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
 }
 
 /* Post Detail */
@@ -504,12 +598,14 @@ main {
   background-color: #2980b9;
 }
 
-/* Form (AddPost) */
+/* Form (AddPost và EditPost) */
 form {
   background-color: white;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 form div {
@@ -524,7 +620,8 @@ form label {
 }
 
 form input,
-form textarea {
+form textarea,
+form select {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #ddd;
@@ -548,6 +645,22 @@ form button {
 
 form button:hover {
   background-color: #2980b9;
+}
+
+.success {
+  color: #2ecc71;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.error {
+  color: #e74c3c;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
 }
 
 /* Add Post Link (ManagePosts) */
@@ -867,11 +980,15 @@ form button:hover {
   color: #e74c3c;
   text-align: center;
   margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
 }
 .auth-container .success {
   color: #2ecc71;
   text-align: center;
   margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
 }
 
 /* Responsive */
@@ -888,6 +1005,29 @@ form button:hover {
   .poster-carousel {
     height: auto;
     max-height: 400px;
+  }
+
+  .post-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-section {
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-group select {
+    width: 100%;
+  }
+
+  form {
+    padding: 1rem;
   }
 }
 

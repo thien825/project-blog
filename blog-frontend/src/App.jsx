@@ -10,6 +10,7 @@ import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Footer from './pages/Footer';
+import EditPost from './pages/EditPost';
 import './App.css';
 
 // Tạo SearchContext để chia sẻ searchQuery
@@ -161,6 +162,8 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/edit-post/:id" element={<EditPost />} />
+          {/* Chỉ cho phép admin truy cập trang quản lý bài viết */}
           <Route
             path="/manage-posts"
             element={
