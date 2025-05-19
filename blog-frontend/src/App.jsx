@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { UserIcon } from '@heroicons/react/24/solid'; // Import UserIcon từ @heroicons/react
+import { UserIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 import Home from './pages/Home';
 import AddPost from './pages/AddPost';
 import PostDetail from './pages/PostDetail';
@@ -23,6 +23,8 @@ function AppContent() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [iconTransition, setIconTransition] = useState('fade-in'); // Thêm trạng thái cho hiệu ứng icon
   const accountRef = useRef(null);
   const navigate = useNavigate();
 
@@ -36,14 +38,30 @@ function AppContent() {
           setIsLoggedIn(true);
           setUser(parsedUser);
         } else {
-          localStorage.removeItem('user'); // Xóa dữ liệu không hợp lệ
+          localStorage.removeItem('user');
         }
       } catch (error) {
         console.error('Error parsing user from localStorage:', error);
-        localStorage.removeItem('user'); // Xóa dữ liệu không hợp lệ
+        localStorage.removeItem('user');
       }
     }
+
+    const savedMode = localStorage.getItem('theme');
+    if (savedMode === 'dark') {
+      setIsDarkMode(true);
+    }
   }, []);
+
+  // Cập nhật localStorage và class khi thay đổi chế độ
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
 
   // Xử lý sự kiện nhấn Enter trong thanh tìm kiếm
   const handleSearch = (e) => {
@@ -74,6 +92,16 @@ function AppContent() {
     setUser(null);
     setIsAccountOpen(false);
     navigate('/');
+  };
+
+  // Hàm chuyển đổi chế độ sáng/tối với hiệu ứng
+  const toggleTheme = () => {
+    console.log('Đang chuyển đổi chế độ sáng/tối:', isDarkMode);
+    setIconTransition('fade-out'); // Kích hoạt hiệu ứng mờ dần
+    setTimeout(() => {
+      setIsDarkMode(!isDarkMode);
+      setIconTransition('fade-in'); // Kích hoạt hiệu ứng hiện lại
+    }, 300); // Thời gian chờ khớp với transition
   };
 
   return (
@@ -124,12 +152,20 @@ function AppContent() {
               </span>
             </div>
             <span className="hotline">Hotline: 0123 456 789</span>
+            {/* Nút chuyển đổi sáng/tối với hiệu ứng */}
+          <button className="theme-toggle" onClick={toggleTheme}>
+          {isDarkMode ? (
+             <SunIcon className={`theme-icon ${iconTransition}`} />
+          ) : (
+              <MoonIcon className={`theme-icon ${iconTransition}`} />
+        )}
+          </button>
             <div className="account-container" ref={accountRef}>
               <button
                 className="account-btn"
                 onClick={() => setIsAccountOpen(!isAccountOpen)}
               >
-                <UserIcon className="account-icon" /> {/* Sử dụng UserIcon thay cho span */}
+                <UserIcon className="account-icon" />
               </button>
               {isAccountOpen && (
                 <div className="account-dropdown">
@@ -163,7 +199,6 @@ function AppContent() {
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/edit-post/:id" element={<EditPost />} />
-          {/* Chỉ cho phép admin truy cập trang quản lý bài viết */}
           <Route
             path="/manage-posts"
             element={
@@ -201,5 +236,4 @@ function App() {
 
 export default App;
 
-// Hook để sử dụng SearchContext
 export const useSearch = () => useContext(SearchContext);

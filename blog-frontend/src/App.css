@@ -5,10 +5,64 @@
   box-sizing: border-box;
 }
 
+/* Định nghĩa biến màu sắc cho chế độ sáng */
+:root {
+  --background-color: #f4f4f9;
+  --text-color: #333;
+  --header-bg: #2c3e50;
+  --header-text: white;
+  --card-bg: #f9f9f9;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --form-bg: white;
+  --input-bg: #ffffff1a;
+  --input-text: white;
+  --input-border: #ffffff33;
+  --footer-bg: #2c3e50;
+  --footer-text: #ffffffcc;
+  --section-bg: white;
+  --link-color: #3498db;
+  --link-hover: #2980b9;
+  --button-bg: #3498db;
+  --button-hover: #2980b9;
+  --button-success-bg: #2ecc71;
+  --button-success-hover: #27ae60;
+  --button-danger-bg: #e74c3c;
+  --button-danger-hover: #c0392b;
+  --secondary-text: #666;
+  --border-color: #ddd;
+}
+
+/* Chế độ tối */
+.dark {
+  --background-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --header-bg: #121212;
+  --header-text: #e0e0e0;
+  --card-bg: #2a2a2a;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  --form-bg: #2a2a2a;
+  --input-bg: #333333;
+  --input-text: #e0e0e0;
+  --input-border: #555555;
+  --footer-bg: #121212;
+  --footer-text: #cccccc;
+  --section-bg: #2a2a2a;
+  --link-color: #66b0ff;
+  --link-hover: #4a90e2;
+  --button-bg: #66b0ff;
+  --button-hover: #4a90e2;
+  --button-success-bg: #27ae60;
+  --button-success-hover: #219653;
+  --button-danger-bg: #c0392b;
+  --button-danger-hover: #a93226;
+  --secondary-text: #b0b0b0;
+  --border-color: #444;
+}
+
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Wrapper để footer luôn ở dưới */
@@ -27,20 +81,20 @@ main {
 
 /* Header */
 .header {
-  background-color: #2c3e50;
-  color: white;
+  background-color: var(--header-bg);
+  color: var(--header-text);
   padding: 1rem;
   width: 1525px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: var(--header-text);
   cursor: pointer;
   transition: 0.5s ease;
   text-decoration: none;
@@ -55,7 +109,7 @@ main {
 }
 
 .menu a {
-  color: white;
+  color: var(--header-text);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
@@ -63,8 +117,8 @@ main {
 }
 
 .menu a:hover {
-  color: #3498db;
-  border-bottom: 3px solid white;
+  color: var(--link-color);
+  border-bottom: 3px solid var(--header-text);
 }
 
 .header-right {
@@ -82,33 +136,33 @@ main {
 
 .search-bar {
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 1px solid #ffffff33;
+  border: 1px solid var(--input-border);
   border-radius: 20px;
   outline: none;
-  background-color: #ffffff1a;
-  color: white;
+  background-color: var(--input-bg);
+  color: var(--input-text);
   width: 200px;
   transition: all 0.3s ease;
 }
 
 .search-bar::placeholder {
-  color: #ffffff99;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .search-bar:hover {
-  background-color: #ffffff33;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .search-bar:focus {
   width: 250px;
-  border-color: #3498db;
-  background-color: white;
-  color: #333;
+  border-color: var(--link-color);
+  background-color: var(--form-bg);
+  color: var(--text-color);
   box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
 }
 
 .search-bar:focus::placeholder {
-  color: #666;
+  color: var(--secondary-text);
 }
 
 /* Icon tìm kiếm */
@@ -131,22 +185,23 @@ main {
 .search-icon svg {
   width: 16px;
   height: 16px;
-  color: #ffffff99;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .search-bar:focus + .search-icon svg,
 .search-icon.active svg {
-  color: #3498db;
+  color: var(--link-color);
 }
 
 .hotline {
   font-size: 0.9rem;
+  color: var(--header-text);
 }
 
 /* Icon tài khoản */
 .account-btn {
-  background-color: #3498db;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--header-text);
   border: none;
   padding: 0;
   border-radius: 50%;
@@ -161,14 +216,14 @@ main {
 }
 
 .account-btn:hover {
-  background-color: #2980b9;
+  background-color: var(--button-hover);
   transform: scale(1.1);
 }
 
 .account-icon {
   width: 24px;
   height: 24px;
-  color: white;
+  color: var(--header-text);
 }
 
 /* Hộp thoại tài khoản */
@@ -180,9 +235,9 @@ main {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
+  background-color: var(--form-bg);
   border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
   min-width: 200px;
   z-index: 10;
   animation: slideDown 0.3s ease;
@@ -191,12 +246,12 @@ main {
 
 .account-dropdown .user-info {
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .account-dropdown .user-info p {
   margin: 0;
-  color: #333;
+  color: var(--text-color);
   font-size: 0.9rem;
 }
 
@@ -205,7 +260,7 @@ main {
   display: block;
   width: 100%;
   padding: 0.5rem 1rem;
-  color: #333;
+  color: var(--text-color);
   text-decoration: none;
   background: none;
   border: none;
@@ -216,7 +271,7 @@ main {
 
 .account-dropdown button:hover,
 .account-dropdown a:hover {
-  background-color: #f4f4f9;
+  background-color: var(--card-bg);
 }
 
 @keyframes slideDown {
@@ -248,7 +303,7 @@ main {
   object-fit: cover;
   object-position: center;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
@@ -269,23 +324,23 @@ main {
 .dot {
   width: 10px;
   height: 10px;
-  background-color: #ffffff80;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .dot.active {
-  background-color: #3498db;
+  background-color: var(--link-color);
 }
 
 /* Post section */
 .post-section {
   margin-top: 2rem;
-  background-color: white;
+  background-color: var(--section-bg);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 /* Post header */
@@ -298,7 +353,7 @@ main {
 
 .post-section h2 {
   font-size: 2rem;
-  color: #436f9a;
+  color: var(--text-color);
   margin-bottom: 0;
 }
 
@@ -318,29 +373,29 @@ main {
 .filter-group label {
   font-size: 0.9rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--text-color);
 }
 
 .filter-group select {
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   font-size: 0.9rem;
   cursor: pointer;
   transition: border-color 0.3s, background-color 0.3s;
 }
 
 .filter-group select:hover {
-  border-color: #3498db;
-  background-color: #f4f4f9;
+  border-color: var(--link-color);
+  background-color: var(--form-bg);
 }
 
 .filter-group select:focus {
-  border-color: #3498db;
+  border-color: var(--link-color);
   outline: none;
-  background-color: white;
+  background-color: var(--form-bg);
 }
 
 /* Post grid (Danh sách bài viết dạng lưới 2x2) */
@@ -353,9 +408,9 @@ main {
 /* Post card (dùng cho Home và ManagePosts) */
 .post-card {
   display: flex;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px var(--shadow-color);
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
   margin-bottom: 5px;
@@ -364,7 +419,7 @@ main {
 
 .post-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .post-image {
@@ -385,7 +440,7 @@ main {
 }
 
 .update-btn {
-  background-color: #2ecc71;
+  background-color: var(--button-success-bg);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -395,11 +450,11 @@ main {
 }
 
 .update-btn:hover {
-  background-color: #27ae60;
+  background-color: var(--button-success-hover);
 }
 
 .delete-btn {
-  background-color: #e74c3c;
+  background-color: var(--button-danger-bg);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -410,11 +465,11 @@ main {
 }
 
 .delete-btn:hover {
-  background-color: #c0392b;
+  background-color: var(--button-danger-hover);
 }
 
 .post-title-link {
-  color: #2c3e50;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -422,22 +477,22 @@ main {
 }
 
 .post-title-link:hover {
-  color: #3498db;
+  color: var(--link-color);
 }
 
 .post-content p {
   margin: 0.5rem 0;
   line-height: 1.6;
-  color: #666;
+  color: var(--secondary-text);
   font-size: 0.9rem;
 }
 
 .post-content p strong {
-  color: #333;
+  color: var(--text-color);
 }
 
 .post-content a {
-  color: #3498db;
+  color: var(--link-color);
   text-decoration: none;
   font-weight: 500;
 }
@@ -449,15 +504,15 @@ main {
 /* Tin tức nổi bật */
 .news-section {
   margin-top: 3rem;
-  background-color: white;
+  background-color: var(--section-bg);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 .news-section h2 {
   font-size: 2rem;
-  color: #436f9a;
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -469,9 +524,9 @@ main {
 
 .news-item {
   display: flex;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px var(--shadow-color);
   overflow: hidden;
   width: 100%;
   max-width: 400px;
@@ -480,7 +535,7 @@ main {
 
 .news-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .news-image {
@@ -495,7 +550,7 @@ main {
 }
 
 .news-title-link {
-  color: #2c3e50;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -503,17 +558,17 @@ main {
 }
 
 .news-title-link:hover {
-  color: #3498db;
+  color: var(--link-color);
 }
 
 .news-content p {
   margin: 0.5rem 0;
   line-height: 1.6;
-  color: #666;
+  color: var(--secondary-text);
 }
 
 .news-content a {
-  color: #3498db;
+  color: var(--link-color);
   text-decoration: none;
   font-weight: 500;
 }
@@ -524,9 +579,9 @@ main {
 
 /* Post Detail */
 .post-detail {
-  background-color: white;
+  background-color: var(--section-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
   padding: 2rem;
 }
 
@@ -541,17 +596,17 @@ main {
 .post-detail p {
   margin: 0.5rem 0;
   line-height: 1.6;
-  color: #666;
+  color: var(--secondary-text);
 }
 
 .post-detail p strong {
-  color: #333;
+  color: var(--text-color);
 }
 
 .back-link {
   display: inline-block;
   margin-top: 1rem;
-  color: #3498db;
+  color: var(--link-color);
   text-decoration: none;
   font-weight: 500;
 }
@@ -566,7 +621,7 @@ main {
 }
 
 .comment {
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
@@ -574,18 +629,22 @@ main {
 
 .comment-form {
   margin-top: 2rem;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .comment-form textarea {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   margin-bottom: 1rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .comment-form button {
-  background-color: #3498db;
+  background-color: var(--button-bg);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -595,15 +654,15 @@ main {
 }
 
 .comment-form button:hover {
-  background-color: #2980b9;
+  background-color: var(--button-hover);
 }
 
 /* Form (AddPost và EditPost) */
 form {
-  background-color: white;
+  background-color: var(--form-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
   max-width: 600px;
   margin: 0 auto;
 }
@@ -616,7 +675,7 @@ form label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
-  color: #333;
+  color: var(--text-color);
 }
 
 form input,
@@ -624,9 +683,11 @@ form textarea,
 form select {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   outline: none;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 form textarea {
@@ -634,7 +695,7 @@ form textarea {
 }
 
 form button {
-  background-color: #3498db;
+  background-color: var(--button-bg);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -644,11 +705,11 @@ form button {
 }
 
 form button:hover {
-  background-color: #2980b9;
+  background-color: var(--button-hover);
 }
 
 .success {
-  color: #2ecc71;
+  color: var(--button-success-bg);
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem;
@@ -656,7 +717,7 @@ form button:hover {
 }
 
 .error {
-  color: #e74c3c;
+  color: var(--button-danger-bg);
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem;
@@ -669,7 +730,7 @@ form button:hover {
 }
 
 .add-post-link button {
-  background-color: #2ecc71;
+  background-color: var(--button-success-bg);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -679,7 +740,7 @@ form button:hover {
 }
 
 .add-post-link button:hover {
-  background-color: #27ae60;
+  background-color: var(--button-success-hover);
 }
 
 /* Contact Page */
@@ -691,23 +752,23 @@ form button:hover {
 }
 
 .contact-info {
-  background-color: white;
+  background-color: var(--section-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
   flex: 1;
   min-width: 300px;
 }
 
 .contact-info h2 {
   margin-bottom: 1rem;
-  color: #2c3e50;
+  color: var(--text-color);
 }
 
 .contact-info p {
   margin: 0.5rem 0;
   line-height: 1.6;
-  color: #666;
+  color: var(--secondary-text);
 }
 
 .contact-form {
@@ -717,7 +778,7 @@ form button:hover {
 
 .contact-form h2 {
   margin-bottom: 1rem;
-  color: #2c3e50;
+  color: var(--text-color);
 }
 
 /* About Page */
@@ -730,23 +791,23 @@ form button:hover {
 
 .about-content {
   flex: 2;
-  background-color: white;
+  background-color: var(--section-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
   min-width: 300px;
 }
 
 .about-content h2,
 .about-content h3 {
   margin-bottom: 1rem;
-  color: #2c3e50;
+  color: var(--text-color);
 }
 
 .about-content p {
   margin: 0.5rem 0;
   line-height: 1.6;
-  color: #666;
+  color: var(--secondary-text);
 }
 
 .about-image {
@@ -758,13 +819,13 @@ form button:hover {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 /* Footer */
 .footer {
-  background-color: #2c3e50;
-  color: white;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
   padding: 2rem 1rem;
   margin-top: 2rem;
 }
@@ -790,16 +851,17 @@ form button:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--header-text);
 }
 
 .footer-info p {
   margin: 0.5rem 0;
   line-height: 1.6;
-  color: #ffffffcc;
+  color: var(--footer-text);
 }
 
 .footer-info p strong {
-  color: white;
+  color: var(--header-text);
 }
 
 .footer-links {
@@ -809,7 +871,7 @@ form button:hover {
 
 .footer-links h3 {
   margin-bottom: 1rem;
-  color: #3498db;
+  color: var(--link-color);
 }
 
 .footer-links ul {
@@ -821,13 +883,13 @@ form button:hover {
 }
 
 .footer-links ul li a {
-  color: #ffffffcc;
+  color: var(--footer-text);
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .footer-links ul li a:hover {
-  color: #3498db;
+  color: var(--link-color);
 }
 
 .footer-social {
@@ -879,11 +941,11 @@ form button:hover {
 
 .footer-widget h3 {
   margin-bottom: 1rem;
-  color: #3498db;
+  color: var(--link-color);
 }
 
 .event-card {
-  background-color: #ffffff1a;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 1rem;
   border-radius: 8px;
 }
@@ -897,12 +959,12 @@ form button:hover {
 }
 
 .event-card p {
-  color: #ffffffcc;
+  color: var(--footer-text);
   margin-bottom: 0.5rem;
 }
 
 .event-link {
-  color: #3498db;
+  color: var(--link-color);
   text-decoration: none;
   font-weight: 500;
 }
@@ -915,15 +977,15 @@ form button:hover {
 .auth-container {
   max-width: 400px;
   margin: 2rem auto;
-  background-color: white;
+  background-color: var(--section-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 .auth-container h2 {
   margin-bottom: 1.5rem;
-  color: #2c3e50;
+  color: var(--text-color);
   text-align: center;
 }
 
@@ -935,20 +997,22 @@ form button:hover {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
-  color: #333;
+  color: var(--text-color);
 }
 
 .auth-container input {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   outline: none;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .auth-container button {
   width: 100%;
-  background-color: #3498db;
+  background-color: var(--button-bg);
   color: white;
   border: none;
   padding: 0.75rem;
@@ -958,17 +1022,17 @@ form button:hover {
 }
 
 .auth-container button:hover {
-  background-color: #2980b9;
+  background-color: var(--button-hover);
 }
 
 .auth-container p {
   margin-top: 1rem;
   text-align: center;
-  color: #666;
+  color: var(--secondary-text);
 }
 
 .auth-container p a {
-  color: #3498db;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -977,14 +1041,15 @@ form button:hover {
 }
 
 .auth-container .error {
-  color: #e74c3c;
+  color: var(--button-danger-bg);
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem;
   border-radius: 4px;
 }
+
 .auth-container .success {
-  color: #2ecc71;
+  color: var(--button-success-bg);
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem;
@@ -1035,27 +1100,56 @@ form button:hover {
   max-width: 600px;
   margin: 2rem auto;
   text-align: center;
-  background-color: white;
+  background-color: var(--section-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 .access-denied h2 {
-  color: #e74c3c;
+  color: var(--button-danger-bg);
   margin-bottom: 1rem;
 }
 
 .access-denied p {
-  color: #666;
+  color: var(--secondary-text);
   margin-bottom: 1.5rem;
 }
 
 .access-denied a {
-  color: #3498db;
+  color: var(--link-color);
   text-decoration: none;
 }
 
 .access-denied a:hover {
   text-decoration: underline;
+}
+
+/* Nút chuyển đổi sáng/tối (đồng bộ với account-btn) */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.theme-icon {
+  width: 24px;
+  height: 24px;
+  color: #000; /* Màu sắc cho chế độ sáng */
+}
+
+.dark .theme-icon {
+  color: #fff; /* Màu sắc cho chế độ tối */
+}
+
+/* Hiệu ứng fade */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }

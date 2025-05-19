@@ -6,6 +6,7 @@ import spidermanPoster from '../assets/poter1.jpg'; // Hình ảnh Spider-Man
 import harryPotterPoster from '../assets/poter2.jpg'; // Hình ảnh Harry Potter
 import titanicPoster from '../assets/poter3.jpg'; // Hình ảnh Titanic
 
+
 function Home() {
   const [posts, setPosts] = useState([]);
   const { searchQuery } = useSearch();
@@ -63,9 +64,7 @@ function Home() {
   });
 
   // Lọc bài viết thuộc danh mục "Tin tức"
-  const newsPosts = posts
-    .filter((post) => post.category && post.category.toLowerCase() === 'tin tức')
-    .slice(0, 3);
+
 
   return (
     <main>
@@ -185,35 +184,8 @@ function Home() {
       </div>
 
       {/* Tin tức nổi bật */}
-      {newsPosts.length > 0 && (
-        <div className="news-section">
-          <h2>Tin tức nổi bật</h2>
-          <div className="news-list">
-            {newsPosts.map((post) => (
-              <div key={post.id} className="news-item">
-                {post.image_url && (
-                  <img src={post.image_url} alt={post.title} className="news-image" />
-                )}
-                <div className="news-content">
-                  <h3>
-                    <Link to={`/post/${post.id}`} className="news-title-link">
-                      {post.title}
-                    </Link>
-                  </h3>
-                  <p>
-                    {post.content.substring(0, 50)}...{' '}
-                    <Link to={`/post/${post.id}`}>Xem thêm</Link>
-                  </p>
-                  <p>
-                    <strong>Ngày đăng:</strong>{' '}
-                    {new Date(post.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+     
+     
     </main>
   );
 }
