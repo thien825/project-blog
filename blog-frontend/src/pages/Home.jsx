@@ -6,13 +6,14 @@ import spidermanPoster from '../assets/poter1.jpg'; // Hình ảnh Spider-Man
 import harryPotterPoster from '../assets/poter2.jpg'; // Hình ảnh Harry Potter
 import titanicPoster from '../assets/poter3.jpg'; // Hình ảnh Titanic
 
-
 function Home() {
   const [posts, setPosts] = useState([]);
   const { searchQuery } = useSearch();
   const [currentPoster, setCurrentPoster] = useState(0);
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterYearRange, setFilterYearRange] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1); // Thêm trạng thái cho trang hiện tại
+  const postsPerPage = 5; // Số bài viết trên mỗi trang
 
   // Danh sách poster
   const posters = [
@@ -51,20 +52,40 @@ function Home() {
 
   // Lọc bài viết dựa trên searchQuery, danh mục, và năm
   const filteredPosts = posts.filter((post) => {
-    const matchesSearch = 
+    const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.content.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = filterCategory === 'all' || 
+    const matchesCategory =
+      filterCategory === 'all' ||
       (post.category && post.category.toLowerCase() === filterCategory.toLowerCase());
     const year = post.release_year ? parseInt(post.release_year, 10) : 0;
-    const selectedRange = yearRanges.find(range => range.value === filterYearRange);
-    const matchesYear = filterYearRange === 'all' || 
+    const selectedRange = yearRanges.find((range) => range.value === filterYearRange);
+    const matchesYear =
+      filterYearRange === 'all' ||
       (year >= selectedRange.range[0] && year <= selectedRange.range[1]);
     return matchesSearch && matchesCategory && matchesYear;
   });
 
-  // Lọc bài viết thuộc danh mục "Tin tức"
+  // Tính toán chỉ số bắt đầu và kết thúc của bài viết trên trang hiện tại
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
+  // Tính tổng số trang
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  // Xử lý chuyển trang
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <main>
@@ -124,7 +145,7 @@ function Home() {
         </div>
         {filteredPosts.length > 0 ? (
           <div className="post-grid">
-            {filteredPosts.map((post) => (
+            {currentPosts.map((post) => (
               <div key={post.id} className="post-card">
                 {post.image_url && (
                   <img src={post.image_url} alt={post.title} className="post-image" />
@@ -181,11 +202,31 @@ function Home() {
         ) : (
           <p>Không tìm thấy bài viết nào.</p>
         )}
+        {/* Phân trang */}
+        {filteredPosts.length > postsPerPage && (
+          <div className="pagination">
+            <button
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              className="pagination-button"
+            >
+              Trang trước
+            </button>
+            <span>
+              Trang {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="pagination-button"
+            >
+              Trang sau
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Tin tức nổi bật */}
-     
-     
     </main>
   );
 }

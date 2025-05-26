@@ -17,6 +17,24 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
+        // Xử lý bảng tintuc
+        if (isset($_GET['type']) && $_GET['type'] === 'news') {
+            if (isset($_GET['id'])) {
+                // Lấy chi tiết một tin tức
+                $stmt = $pdo->prepare('SELECT id, title, content, image_url, created_at FROM tintuc WHERE id = ?');
+                $stmt->execute([$_GET['id']]);
+                $newsItem = $stmt->fetch(PDO::FETCH_ASSOC);
+                echo json_encode($newsItem ?: []);
+            } else {
+                // Lấy danh sách tất cả tin tức
+                $stmt = $pdo->query('SELECT id, title, content, image_url, created_at FROM tintuc ORDER BY created_at DESC');
+                $news = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo json_encode($news);
+            }
+            break;
+        }
+
+        // Xử lý bảng posts (giữ nguyên logic cũ)
         if (isset($_GET['id'])) {
             $stmt = $pdo->prepare('
                 SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
@@ -56,7 +74,84 @@ switch ($method) {
         break;
 
     case 'POST':
-        // Nếu có id trên query-string => cập nhật
+        // Xử lý bảng tintuc
+        if (isset($_GET['type']) && $_GET['type'] === 'news') {
+            // Nếu có id trên query-string => cập nhật
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                file_put_contents('debug.log', "UPDATE News Request at " . date('Y-m-d H:i:s') .
+                    "\nPOST: " . print_r($_POST, true) .
+                    "\nFILES: " . print_r($_FILES, true) . "\n", FILE_APPEND);
+
+                // Lấy ảnh cũ
+                $stmt = $pdo->prepare('SELECT image_url FROM tintuc WHERE id = ?');
+                $stmt->execute([$id]);
+                $current = $stmt->fetch(PDO::FETCH_ASSOC);
+                if (!$current) {
+                    echo json_encode(['error' => 'Không tìm thấy tin tức ID: ' . $id]);
+                    exit;
+                }
+                $image_url = $current['image_url'];
+
+                // Upload ảnh mới nếu có
+                if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    require_once 'upload_helper.php';
+                    $new_name = uploadImage();
+                    if ($new_name) {
+                        if ($image_url && file_exists($image_url)) {
+                            unlink($image_url);
+                        }
+                        $image_url = $new_name;
+                    }
+                }
+
+                // Update tintuc
+                $stmt = $pdo->prepare('
+                    UPDATE tintuc
+                    SET title = ?, content = ?, image_url = ?
+                    WHERE id = ?
+                ');
+                $stmt->execute([
+                    $_POST['title'] ?? '',
+                    $_POST['content'] ?? '',
+                    $image_url,
+                    $id
+                ]);
+
+                echo json_encode(['message' => 'News updated successfully', 'title' => $_POST['title']]);
+                exit;
+            }
+
+            // Không có id => tạo mới
+            if (isset($_POST['title'])) {
+                file_put_contents('debug.log', "CREATE News Request at " . date('Y-m-d H:i:s') .
+                    "\nPOST: " . print_r($_POST, true) .
+                    "\nFILES: " . print_r($_FILES, true) . "\n", FILE_APPEND);
+
+                require_once 'upload_helper.php';
+                $image_url = null;
+                if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    $image_url = uploadImage();
+                }
+
+                $stmt = $pdo->prepare('
+                    INSERT INTO tintuc (title, content, image_url, created_at)
+                    VALUES (?, ?, ?, NOW())
+                ');
+                $stmt->execute([
+                    $_POST['title'],
+                    $_POST['content'] ?? '',
+                    $image_url
+                ]);
+
+                echo json_encode(['message' => 'News created successfully']);
+            } else {
+                echo json_encode(['error' => 'Thiếu tiêu đề tin tức']);
+            }
+            break;
+        }
+
+        // Xử lý bảng posts (giữ nguyên logic cũ)
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             file_put_contents('debug.log', "UPDATE Request at " . date('Y-m-d H:i:s') .
@@ -173,6 +268,26 @@ switch ($method) {
         break;
 
     case 'DELETE':
+        // Xử lý bảng tintuc
+        if (isset($_GET['type']) && $_GET['type'] === 'news') {
+            $data = json_decode(file_get_contents('php://input'), true);
+            if (isset($data['id'])) {
+                $stmt = $pdo->prepare('SELECT image_url FROM tintuc WHERE id = ?');
+                $stmt->execute([$data['id']]);
+                $newsItem = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($newsItem && $newsItem['image_url'] && file_exists($newsItem['image_url'])) {
+                    unlink($newsItem['image_url']);
+                }
+                $stmt = $pdo->prepare('DELETE FROM tintuc WHERE id = ?');
+                $stmt->execute([$data['id']]);
+                echo json_encode(['message' => 'News deleted successfully']);
+            } else {
+                echo json_encode(['error' => 'Thiếu ID tin tức']);
+            }
+            break;
+        }
+
+        // Xử lý bảng posts (giữ nguyên logic cũ)
         $data = json_decode(file_get_contents('php://input'), true);
         if (isset($data['id'])) {
             $stmt = $pdo->prepare('SELECT image_filename FROM posts WHERE id = ?');
@@ -193,3 +308,4 @@ switch ($method) {
         echo json_encode(['error' => 'Phương thức không được hỗ trợ']);
         break;
 }
+?>

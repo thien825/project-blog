@@ -2,16 +2,18 @@ import { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { UserIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 import Home from './pages/Home';
-import AddPost from './pages/AddPost';
-import PostDetail from './pages/PostDetail';
-import ManagePosts from './pages/ManagePosts';
+import AddPost from './Components/AddPost';
+import PostDetail from './Components/PostDetail';
+import ManagePosts from './Components/ManagePosts';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Footer from './pages/Footer';
-import EditPost from './pages/EditPost';
+import EditPost from './Components/EditPost';
+import News from './pages/News'; // Import trang Tin tức
 import './App.css';
+import NewsDetail from './pages/NewsDetail';
 
 // Tạo SearchContext để chia sẻ searchQuery
 const SearchContext = createContext();
@@ -24,7 +26,7 @@ function AppContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [iconTransition, setIconTransition] = useState('fade-in'); // Thêm trạng thái cho hiệu ứng icon
+  const [iconTransition, setIconTransition] = useState('fade-in');
   const accountRef = useRef(null);
   const navigate = useNavigate();
 
@@ -96,12 +98,13 @@ function AppContent() {
 
   // Hàm chuyển đổi chế độ sáng/tối với hiệu ứng
   const toggleTheme = () => {
-    console.log('Đang chuyển đổi chế độ sáng/tối:', isDarkMode);
-    setIconTransition('fade-out'); // Kích hoạt hiệu ứng mờ dần
+    console.log('Trước khi chuyển đổi - isDarkMode:', isDarkMode, 'iconTransition:', iconTransition);
+    setIconTransition('fade-out');
     setTimeout(() => {
       setIsDarkMode(!isDarkMode);
-      setIconTransition('fade-in'); // Kích hoạt hiệu ứng hiện lại
-    }, 300); // Thời gian chờ khớp với transition
+      setIconTransition('fade-in');
+      console.log('Sau khi chuyển đổi - isDarkMode:', !isDarkMode, 'iconTransition:', 'fade-in');
+    }, 300);
   };
 
   return (
@@ -120,6 +123,7 @@ function AppContent() {
             {isLoggedIn && user?.role === 'admin' && (
               <Link to="/manage-posts">Quản lý bài viết</Link>
             )}
+            <Link to="/news">Tin tức</Link> {/* Thêm mục Tin tức */}
             <Link to="/contact">Liên hệ</Link>
             <Link to="/about">Giới thiệu</Link>
           </nav>
@@ -152,14 +156,13 @@ function AppContent() {
               </span>
             </div>
             <span className="hotline">Hotline: 0123 456 789</span>
-            {/* Nút chuyển đổi sáng/tối với hiệu ứng */}
-          <button className="theme-toggle" onClick={toggleTheme}>
-          {isDarkMode ? (
-             <SunIcon className={`theme-icon ${iconTransition}`} />
-          ) : (
-              <MoonIcon className={`theme-icon ${iconTransition}`} />
-        )}
-          </button>
+            <button className="theme-toggle" onClick={toggleTheme}>
+              {isDarkMode ? (
+                <SunIcon className={`theme-icon ${iconTransition}`} />
+              ) : (
+                <MoonIcon className={`theme-icon ${iconTransition}`} />
+              )}
+            </button>
             <div className="account-container" ref={accountRef}>
               <button
                 className="account-btn"
@@ -217,6 +220,8 @@ function AppContent() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
           <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+          <Route path="/news" element={<News />} /> {/* Thêm route cho Tin tức */}
+          <Route path="/news/:id" element={<NewsDetail />} /> {/* Thêm route cho chi tiết Tin tức */}
         </Routes>
 
         {/* Footer */}
