@@ -89,6 +89,10 @@ main {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 5px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
 }
 
 .logo {
@@ -106,6 +110,10 @@ main {
 .menu {
   display: flex;
   gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
 }
 
 .menu a {
@@ -164,6 +172,9 @@ main {
 .search-bar:focus::placeholder {
   color: var(--secondary-text);
 }
+/* navbar */
+
+
 
 /* Icon tìm kiếm */
 .search-icon {

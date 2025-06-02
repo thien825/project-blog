@@ -14,6 +14,7 @@ import EditPost from './Components/EditPost';
 import News from './pages/News'; // Import trang Tin tức
 import './App.css';
 import NewsDetail from './pages/NewsDetail';
+import HeroSection from './Components/HeroSection';
 
 // Tạo SearchContext để chia sẻ searchQuery
 const SearchContext = createContext();
@@ -112,12 +113,14 @@ function AppContent() {
       <div className="app-wrapper">
         {/* Header */}
         <header className="header">
+          <Link to="/" className="logo-link">
           <div className="logo">
             <span role="img" aria-label="movie-book">
               🎬📚
             </span>{' '}
             Movie & Book Blog
           </div>
+          </Link>
           <nav className="menu">
             <Link to="/">Trang chủ</Link>
             {isLoggedIn && user?.role === 'admin' && (
@@ -137,7 +140,7 @@ function AppContent() {
                 onBlur={() => setIsSearchFocused(false)}
                 onKeyPress={handleSearch}
                 className="search-bar"
-                placeholder="Tìm kiếm..."
+                placeholder="Nhập tên phim, sách...."
               />
               <span className={`search-icon ${isSearchFocused ? 'active' : ''}`}>
                 <svg
@@ -223,7 +226,7 @@ function AppContent() {
           <Route path="/news" element={<News />} /> {/* Thêm route cho Tin tức */}
           <Route path="/news/:id" element={<NewsDetail />} /> {/* Thêm route cho chi tiết Tin tức */}
         </Routes>
-
+       
         {/* Footer */}
         <Footer />
       </div>

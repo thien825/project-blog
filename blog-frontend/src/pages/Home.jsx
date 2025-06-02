@@ -5,6 +5,9 @@ import { useSearch } from '../App';
 import spidermanPoster from '../assets/poter1.jpg'; // Hình ảnh Spider-Man
 import harryPotterPoster from '../assets/poter2.jpg'; // Hình ảnh Harry Potter
 import titanicPoster from '../assets/poter3.jpg'; // Hình ảnh Titanic
+import '../App.css'; // Giả sử CSS nằm trong App.css
+import '../styles/HeroSection.css'; // CSS cho HeroSection
+import HeroSection from '../Components/HeroSection';
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -12,7 +15,7 @@ function Home() {
   const [currentPoster, setCurrentPoster] = useState(0);
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterYearRange, setFilterYearRange] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1); // Thêm trạng thái cho trang hiện tại
+  const [currentPage, setCurrentPage] = useState(1); // Trạng thái cho trang hiện tại
   const postsPerPage = 5; // Số bài viết trên mỗi trang
 
   // Danh sách poster
@@ -89,6 +92,8 @@ function Home() {
 
   return (
     <main>
+      {/* Hero Section */}
+      <HeroSection />
       {/* Poster Carousel */}
       <div className="poster-carousel">
         {posters.map((poster, index) => (
@@ -226,7 +231,10 @@ function Home() {
         )}
       </div>
 
-      {/* Tin tức nổi bật */}
+      {/* Tin tức nổi bật - Chưa triển khai */}
+      {/* <div className="featured-news">
+        // Thêm code cho tin tức nổi bật sau
+      </div> */}
     </main>
   );
 }
