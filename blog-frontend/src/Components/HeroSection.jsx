@@ -6,7 +6,7 @@ return (
         <div className="hero-content">
             <h1 className="hero-title">Khám phá thế giới phim & sách</h1>
             <p className="hero-subtitle">
-                Cập nhật những bài viết, đánh giá và tin tức mới nhất về phim ảnh và sách tại đây!
+                Cập nhật những góc nhìn sắc, review chân thực và thông tin mới nhất về phim ảnh và sách.
             </p>
             <Link to="/register" className="hero-cta">
                 Đăng ký ngay

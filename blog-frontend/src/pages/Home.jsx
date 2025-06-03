@@ -8,11 +8,12 @@ import titanicPoster from '../assets/poter3.jpg'; // Hình ảnh Titanic
 import '../App.css'; // Giả sử CSS nằm trong App.css
 import '../styles/HeroSection.css'; // CSS cho HeroSection
 import HeroSection from '../Components/HeroSection';
+import HeroSlider from '../Components/HeroSlider';
+import FeaturedNews from '../Components/FeaturedNews';
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const { searchQuery } = useSearch();
-  const [currentPoster, setCurrentPoster] = useState(0);
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterYearRange, setFilterYearRange] = useState('all');
   const [currentPage, setCurrentPage] = useState(1); // Trạng thái cho trang hiện tại
@@ -40,10 +41,7 @@ function Home() {
   useEffect(() => {
     fetchPosts();
     // Tự động chuyển poster mỗi 5 giây
-    const interval = setInterval(() => {
-      setCurrentPoster((prev) => (prev + 1) % posters.length);
-    }, 5000);
-    return () => clearInterval(interval);
+  
   }, [posters.length]);
 
   const fetchPosts = () => {
@@ -95,26 +93,8 @@ function Home() {
       {/* Hero Section */}
       <HeroSection />
       {/* Poster Carousel */}
-      <div className="poster-carousel">
-        {posters.map((poster, index) => (
-          <img
-            key={index}
-            src={poster.image}
-            alt={poster.alt}
-            className={`poster-image ${index === currentPoster ? 'active' : ''}`}
-          />
-        ))}
-        <div className="poster-dots">
-          {posters.map((_, index) => (
-            <span
-              key={index}
-              className={`dot ${index === currentPoster ? 'active' : ''}`}
-              onClick={() => setCurrentPoster(index)}
-            ></span>
-          ))}
-        </div>
-      </div>
-
+      <HeroSlider />
+     
       {/* Danh sách bài viết */}
       <div className="post-section">
         <div className="post-header">
@@ -232,9 +212,9 @@ function Home() {
       </div>
 
       {/* Tin tức nổi bật - Chưa triển khai */}
-      {/* <div className="featured-news">
-        // Thêm code cho tin tức nổi bật sau
-      </div> */}
+      <FeaturedNews />
+
+      {/* Phần giới thiệu */}
     </main>
   );
 }

@@ -53,7 +53,7 @@ function News() {
     <main>
       <div className="post-section">
         <div className="post-header">
-          <h2>Tin tức nổi bật</h2>
+          <h2>Tin tức </h2>
         </div>
         {filteredNews.length > 0 ? (
           <div className="post-grid">

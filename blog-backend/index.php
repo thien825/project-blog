@@ -17,62 +17,69 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        // Xử lý bảng tintuc
-        if (isset($_GET['type']) && $_GET['type'] === 'news') {
-            if (isset($_GET['id'])) {
-                // Lấy chi tiết một tin tức
-                $stmt = $pdo->prepare('SELECT id, title, content, image_url, created_at FROM tintuc WHERE id = ?');
-                $stmt->execute([$_GET['id']]);
-                $newsItem = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo json_encode($newsItem ?: []);
-            } else {
-                // Lấy danh sách tất cả tin tức
-                $stmt = $pdo->query('SELECT id, title, content, image_url, created_at FROM tintuc ORDER BY created_at DESC');
-                $news = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo json_encode($news);
-            }
-            break;
-        }
-
-        // Xử lý bảng posts (giữ nguyên logic cũ)
+    // Xử lý bảng tintuc
+    if (isset($_GET['type']) && $_GET['type'] === 'news') {
         if (isset($_GET['id'])) {
-            $stmt = $pdo->prepare('
-                SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
-                       u.username AS author, c.name AS category,
-                       pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre
-                FROM posts p
-                LEFT JOIN users u ON p.user_id = u.id
-                LEFT JOIN categories c ON p.category_id = c.id
-                LEFT JOIN post_details pd ON p.id = pd.post_id
-                WHERE p.id = ?
-            ');
+            // Lấy chi tiết một tin tức
+            $stmt = $pdo->prepare('SELECT id, title, content, image_url, created_at FROM tintuc WHERE id = ?');
             $stmt->execute([$_GET['id']]);
-            $post = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($post && $post['image_filename']) {
-                $post['image_url'] = 'http://localhost/PROJECT_BLOG/blog-backend/' . $post['image_filename'];
-            }
-            echo json_encode($post ?: []);
+            $newsItem = $stmt->fetch(PDO::FETCH_ASSOC);
+            echo json_encode($newsItem ?: []);
         } else {
-            $stmt = $pdo->query('
-                SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
-                       u.username AS author, c.name AS category,
-                       pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre
-                FROM posts p
-                LEFT JOIN users u ON p.user_id = u.id
-                LEFT JOIN categories c ON p.category_id = c.id
-                LEFT JOIN post_details pd ON p.id = pd.post_id
-                ORDER BY p.created_at DESC
-            ');
-            $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($posts as &$item) {
-                if ($item['image_filename']) {
-                    $item['image_url'] = 'http://localhost/PROJECT_BLOG/blog-backend/' . $item['image_filename'];
-                }
-            }
-            echo json_encode($posts);
+            // Lấy danh sách tất cả tin tức
+            $stmt = $pdo->query('SELECT id, title, content, image_url, created_at FROM tintuc ORDER BY created_at DESC');
+            $news = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($news);
         }
         break;
+    }
 
+    // Xử lý tin tức nổi bật
+    if (isset($_GET['type']) && $_GET['type'] === 'featured') {
+        $stmt = $pdo->query('SELECT id, title, content, image_url, created_at FROM tintuc WHERE is_featured = 1 OR created_at IS NOT NULL ORDER BY created_at DESC LIMIT 5');
+        $featuredNews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($featuredNews);
+        break;
+    }
+
+    // Xử lý bảng posts
+    if (isset($_GET['id'])) {
+        $stmt = $pdo->prepare('
+            SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
+                   u.username AS author, c.name AS category,
+                   pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre
+            FROM posts p
+            LEFT JOIN users u ON p.user_id = u.id
+            LEFT JOIN categories c ON p.category_id = c.id
+            LEFT JOIN post_details pd ON p.id = pd.post_id
+            WHERE p.id = ?
+        ');
+        $stmt->execute([$_GET['id']]);
+        $post = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($post && $post['image_filename']) {
+            $post['image_url'] = 'http://localhost/PROJECT_BLOG/blog-backend/' . $post['image_filename'];
+        }
+        echo json_encode($post ?: []);
+    } else {
+        $stmt = $pdo->query('
+            SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
+                   u.username AS author, c.name AS category,
+                   pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre
+            FROM posts p
+            LEFT JOIN users u ON p.user_id = u.id
+            LEFT JOIN categories c ON p.category_id = c.id
+            LEFT JOIN post_details pd ON p.id = pd.post_id
+            ORDER BY p.created_at DESC
+        ');
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($posts as &$item) {
+            if ($item['image_filename']) {
+                $item['image_url'] = 'http://localhost/PROJECT_BLOG/blog-backend/' . $item['image_filename'];
+            }
+        }
+        echo json_encode($posts);
+    }
+    break;
     case 'POST':
         // Xử lý bảng tintuc
         if (isset($_GET['type']) && $_GET['type'] === 'news') {
@@ -266,6 +273,75 @@ switch ($method) {
             echo json_encode(['error' => 'Thiếu các trường bắt buộc']);
         }
         break;
+
+        // Thêm vào phần POST (cập nhật tin tức với is_featured)
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    file_put_contents('debug.log', "UPDATE News Request at " . date('Y-m-d H:i:s') .
+        "\nPOST: " . print_r($_POST, true) .
+        "\nFILES: " . print_r($_FILES, true) . "\n", FILE_APPEND);
+
+    $stmt = $pdo->prepare('SELECT image_url FROM tintuc WHERE id = ?');
+    $stmt->execute([$id]);
+    $current = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$current) {
+        echo json_encode(['error' => 'Không tìm thấy tin tức ID: ' . $id]);
+        exit;
+    }
+    $image_url = $current['image_url'];
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        require_once 'upload_helper.php';
+        $new_name = uploadImage();
+        if ($new_name) {
+            if ($image_url && file_exists($image_url)) {
+                unlink($image_url);
+            }
+            $image_url = $new_name;
+        }
+    }
+
+    $stmt = $pdo->prepare('
+        UPDATE tintuc
+        SET title = ?, content = ?, image_url = ?, is_featured = ?
+        WHERE id = ?
+    ');
+    $stmt->execute([
+        $_POST['title'] ?? '',
+        $_POST['content'] ?? '',
+        $image_url,
+        $_POST['is_featured'] ?? 0, // Thêm trường is_featured
+        $id
+    ]);
+
+    echo json_encode(['message' => 'News updated successfully', 'title' => $_POST['title']]);
+    exit;
+}
+
+if (isset($_POST['title'])) {
+    file_put_contents('debug.log', "CREATE News Request at " . date('Y-m-d H:i:s') .
+        "\nPOST: " . print_r($_POST, true) .
+        "\nFILES: " . print_r($_FILES, true) . "\n", FILE_APPEND);
+
+    require_once 'upload_helper.php';
+    $image_url = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $image_url = uploadImage();
+    }
+
+    $stmt = $pdo->prepare('
+        INSERT INTO tintuc (title, content, image_url, created_at, is_featured)
+        VALUES (?, ?, ?, NOW(), ?)
+    ');
+    $stmt->execute([
+        $_POST['title'],
+        $_POST['content'] ?? '',
+        $image_url,
+        $_POST['is_featured'] ?? 0 // Thêm trường is_featured
+    ]);
+
+    echo json_encode(['message' => 'News created successfully']);
+}
 
     case 'DELETE':
         // Xử lý bảng tintuc
