@@ -47,12 +47,15 @@ switch ($method) {
         $stmt = $pdo->prepare('
             SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
                    u.username AS author, c.name AS category,
-                   pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre
+                   pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre,
+                   COUNT(l.id) as like_count
             FROM posts p
             LEFT JOIN users u ON p.user_id = u.id
             LEFT JOIN categories c ON p.category_id = c.id
             LEFT JOIN post_details pd ON p.id = pd.post_id
+            LEFT JOIN likes l ON p.id = l.post_id
             WHERE p.id = ?
+            GROUP BY p.id
         ');
         $stmt->execute([$_GET['id']]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -64,11 +67,14 @@ switch ($method) {
         $stmt = $pdo->query('
             SELECT p.id, p.title, p.content, p.image_filename, p.created_at, p.updated_at,
                    u.username AS author, c.name AS category,
-                   pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre
+                   pd.rating, pd.director, pd.author AS book_author, pd.release_year, pd.genre,
+                   COUNT(l.id) as like_count
             FROM posts p
             LEFT JOIN users u ON p.user_id = u.id
             LEFT JOIN categories c ON p.category_id = c.id
             LEFT JOIN post_details pd ON p.id = pd.post_id
+            LEFT JOIN likes l ON p.id = l.post_id
+            GROUP BY p.id
             ORDER BY p.created_at DESC
         ');
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);

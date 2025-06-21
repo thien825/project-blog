@@ -1,23 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../App';
+import LikeButton from './LikeButton';
 
 function PostDetail() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
-  const [user, setUser] = useState(null);
+  const { user } = useUser();
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Lấy thông tin người dùng từ localStorage
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-
     // Lấy thông tin bài viết
     const fetchPost = async () => {
       try {
@@ -110,6 +106,14 @@ function PostDetail() {
         {post.release_year && <p><strong>Năm phát hành:</strong> {post.release_year}</p>}
         {post.genre && <p><strong>Thể loại:</strong> {post.genre}</p>}
         <p><strong>Ngày đăng:</strong> {new Date(post.created_at).toLocaleDateString()}</p>
+        
+        {/* Like Button */}
+        <LikeButton 
+          postId={post.id} 
+          initialLikeCount={post.like_count || 0}
+          userId={user?.id}
+        />
+        
         <Link to="/" className="back-link">Quay lại trang chủ</Link>
       </div>
 

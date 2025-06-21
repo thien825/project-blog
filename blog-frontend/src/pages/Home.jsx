@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useSearch } from '../App';
+import { useSearch, useUser } from '../App';
 import spidermanPoster from '../assets/poter1.jpg'; // Hình ảnh Spider-Man
 import harryPotterPoster from '../assets/poter2.jpg'; // Hình ảnh Harry Potter
 import titanicPoster from '../assets/poter3.jpg'; // Hình ảnh Titanic
@@ -10,10 +10,12 @@ import '../styles/HeroSection.css'; // CSS cho HeroSection
 import HeroSection from '../Components/HeroSection';
 import HeroSlider from '../Components/HeroSlider';
 import FeaturedNews from '../Components/FeaturedNews';
+import LikeButton from '../Components/LikeButton';
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const { searchQuery } = useSearch();
+  const { user } = useUser();
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterYearRange, setFilterYearRange] = useState('all');
   const [currentPage, setCurrentPage] = useState(1); // Trạng thái cho trang hiện tại
@@ -180,6 +182,13 @@ function Home() {
                     <strong>Ngày đăng:</strong>{' '}
                     {new Date(post.created_at).toLocaleDateString()}
                   </p>
+                  
+                  {/* Like Button */}
+                  <LikeButton 
+                    postId={post.id} 
+                    initialLikeCount={post.like_count || 0}
+                    userId={user?.id}
+                  />
                 </div>
               </div>
             ))}
