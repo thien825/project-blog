@@ -104,122 +104,124 @@ function EditPost() {
 
   return (
     <main>
-      <h1 className="post-header">Cập nhật bài viết</h1>
-      {message && (
-        <p className={message.includes('thành công') ? 'success' : 'error'}>
-          {message}
-        </p>
-      )}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
-          <label>Tiêu đề</label>
-          <input
-            type="text"
-            name="title"
-            value={post.title}
-            onChange={handleChange}
-            required
-            placeholder="Nhập tiêu đề"
-          />
-        </div>
-        <div>
-          <label>Nội dung</label>
-          <textarea
-            name="content"
-            value={post.content}
-            onChange={handleChange}
-            required
-            placeholder="Nhập nội dung"
-          />
-        </div>
-        <div>
-          <label>Tác giả</label>
-          <input
-            type="text"
-            name="author"
-            value={post.author}
-            onChange={handleChange}
-            placeholder="Nhập tên tác giả"
-          />
-        </div>
-        <div>
-          <label>Danh mục</label>
-          <select
-            name="category"
-            value={post.category}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Chọn danh mục</option>
-            <option value="phim">Phim</option>
-            <option value="sách">Sách</option>
-            <option value="tin tức">Tin tức</option>
-          </select>
-        </div>
-        <div>
-          <label>Đánh giá (0-10)</label>
-          <input
-            type="number"
-            name="rating"
-            value={post.rating}
-            onChange={handleChange}
-            min="0"
-            max="10"
-            step="0.1"
-            placeholder="Nhập đánh giá"
-          />
-        </div>
-        <div>
-          <label>Đạo diễn</label>
-          <input
-            type="text"
-            name="director"
-            value={post.director}
-            onChange={handleChange}
-            placeholder="Nhập tên đạo diễn"
-          />
-        </div>
-        <div>
-          <label>Tác giả sách</label>
-          <input
-            type="text"
-            name="book_author"
-            value={post.book_author}
-            onChange={handleChange}
-            placeholder="Nhập tên tác giả sách"
-          />
-        </div>
-        <div>
-          <label>Năm phát hành</label>
-          <input
-            type="number"
-            name="release_year"
-            value={post.release_year}
-            onChange={handleChange}
-            placeholder="Nhập năm phát hành"
-          />
-        </div>
-        <div>
-          <label>Thể loại</label>
-          <input
-            type="text"
-            name="genre"
-            value={post.genre}
-            onChange={handleChange}
-            placeholder="Nhập thể loại"
-          />
-        </div>
-        <div>
-          <label>Hình ảnh</label>
-          <input
-            type="file"
-            name="image"
-            onChange={handleImageChange}
-            accept="image/*"
-          />
-        </div>
-        <button type="submit">Lưu thay đổi</button>
-      </form>
+      <section className="post-section">
+        <h1 className="post-header">Cập nhật bài viết</h1>
+        {message && (
+          <p className={message.includes('thành công') ? 'success' : 'error'}>
+            {message}
+          </p>
+        )}
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div>
+            <label>Tiêu đề</label>
+            <input
+              type="text"
+              name="title"
+              value={post.title}
+              onChange={handleChange}
+              required
+              placeholder="Nhập tiêu đề"
+            />
+          </div>
+          <div>
+            <label>Nội dung</label>
+            <textarea
+              name="content"
+              value={post.content}
+              onChange={handleChange}
+              required
+              placeholder="Nhập nội dung"
+            />
+          </div>
+          <div>
+            <label>Tác giả</label>
+            <input
+              type="text"
+              name="author"
+              value={post.author}
+              onChange={handleChange}
+              placeholder="Nhập tên tác giả"
+            />
+          </div>
+          <div>
+            <label>Danh mục</label>
+            <select
+              name="category"
+              value={post.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Chọn danh mục</option>
+              <option value="phim">Phim</option>
+              <option value="sách">Sách</option>
+              <option value="tin tức">Tin tức</option>
+            </select>
+          </div>
+          <div>
+            <label>Đánh giá (0-10)</label>
+            <input
+              type="number"
+              name="rating"
+              value={post.rating}
+              onChange={handleChange}
+              min="0"
+              max="10"
+              step="0.1"
+              placeholder="Nhập đánh giá"
+            />
+          </div>
+          <div>
+            <label>Đạo diễn</label>
+            <input
+              type="text"
+              name="director"
+              value={post.director}
+              onChange={handleChange}
+              placeholder="Nhập tên đạo diễn"
+            />
+          </div>
+          <div>
+            <label>Tác giả sách</label>
+            <input
+              type="text"
+              name="book_author"
+              value={post.book_author}
+              onChange={handleChange}
+              placeholder="Nhập tên tác giả sách"
+            />
+          </div>
+          <div>
+            <label>Năm phát hành</label>
+            <input
+              type="number"
+              name="release_year"
+              value={post.release_year}
+              onChange={handleChange}
+              placeholder="Nhập năm phát hành"
+            />
+          </div>
+          <div>
+            <label>Thể loại</label>
+            <input
+              type="text"
+              name="genre"
+              value={post.genre}
+              onChange={handleChange}
+              placeholder="Nhập thể loại"
+            />
+          </div>
+          <div>
+            <label>Hình ảnh</label>
+            <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
+          </div>
+          <button type="submit">Lưu thay đổi</button>
+        </form>
+      </section>
     </main>
   );
 }

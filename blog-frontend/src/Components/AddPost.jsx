@@ -61,80 +61,82 @@ function AddPost() {
 
   return (
     <main>
-      <h1>Thêm bài viết mới</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Tiêu đề:</label>
-          <input
-            type="text"
-            value={newPost.title}
-            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Nội dung:</label>
-          <textarea
-            value={newPost.content}
-            onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Hình ảnh minh họa:</label>
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/gif"
-            onChange={handleImageChange}
-          />
-        </div>
-        <div>
-          <label>Đánh giá (0-10):</label>
-          <input
-            type="number"
-            value={newPost.rating}
-            onChange={(e) => setNewPost({ ...newPost, rating: parseFloat(e.target.value) })}
-            min="0"
-            max="10"
-            step="0.1"
-          />
-        </div>
-        <div>
-          <label>Đạo diễn (nếu là phim):</label>
-          <input
-            type="text"
-            value={newPost.director}
-            onChange={(e) => setNewPost({ ...newPost, director: e.target.value })}
-          />
-        </div>
-        <div>
-          <label>Tác giả (nếu là sách):</label>
-          <input
-            type="text"
-            value={newPost.book_author}
-            onChange={(e) => setNewPost({ ...newPost, book_author: e.target.value })}
-          />
-        </div>
-        <div>
-          <label>Năm phát hành:</label>
-          <input
-            type="number"
-            value={newPost.release_year}
-            onChange={(e) => setNewPost({ ...newPost, release_year: e.target.value })}
-            min="1800"
-            max="2100"
-          />
-        </div>
-        <div>
-          <label>Thể loại:</label>
-          <input
-            type="text"
-            value={newPost.genre}
-            onChange={(e) => setNewPost({ ...newPost, genre: e.target.value })}
-          />
-        </div>
-        <button type="submit">Thêm bài viết</button>
-      </form>
+      <section className="post-section">
+        <h1 className="post-header">Thêm bài viết mới</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Tiêu đề:</label>
+            <input
+              type="text"
+              value={newPost.title}
+              onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label>Nội dung:</label>
+            <textarea
+              value={newPost.content}
+              onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label>Hình ảnh minh họa:</label>
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/gif"
+              onChange={handleImageChange}
+            />
+          </div>
+          <div>
+            <label>Đánh giá (0-10):</label>
+            <input
+              type="number"
+              value={newPost.rating}
+              onChange={(e) => setNewPost({ ...newPost, rating: parseFloat(e.target.value) })}
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
+          <div>
+            <label>Đạo diễn (nếu là phim):</label>
+            <input
+              type="text"
+              value={newPost.director}
+              onChange={(e) => setNewPost({ ...newPost, director: e.target.value })}
+            />
+          </div>
+          <div>
+            <label>Tác giả (nếu là sách):</label>
+            <input
+              type="text"
+              value={newPost.book_author}
+              onChange={(e) => setNewPost({ ...newPost, book_author: e.target.value })}
+            />
+          </div>
+          <div>
+            <label>Năm phát hành:</label>
+            <input
+              type="number"
+              value={newPost.release_year}
+              onChange={(e) => setNewPost({ ...newPost, release_year: e.target.value })}
+              min="1800"
+              max="2100"
+            />
+          </div>
+          <div>
+            <label>Thể loại:</label>
+            <input
+              type="text"
+              value={newPost.genre}
+              onChange={(e) => setNewPost({ ...newPost, genre: e.target.value })}
+            />
+          </div>
+          <button type="submit">Thêm bài viết</button>
+        </form>
+      </section>
     </main>
   );
 }

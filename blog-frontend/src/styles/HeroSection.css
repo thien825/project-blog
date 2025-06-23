@@ -1,22 +1,25 @@
+/* --- HeroSection hiện đại, UI/UX tốt --- */
 .hero-section {
-    position: relative;
-    width: 100vw;
-    left: 50%;
-    right: 0;
-    transform: translateX(-50%);
-    height: 500px;
-    background-image: url('../assets/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    margin-bottom: 2rem;
-    margin-left: 0;
-    margin-top: 0;
-    bottom: 33px;
+  position: relative;
+  width: 100vw;
+  bottom: 31px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 500px;
+  background-image: url('../assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 3.5rem;
+  margin-top: 0 !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
+  overflow: hidden;
 }
 
 .hero-section::before {
@@ -26,33 +29,45 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+  background: linear-gradient(120deg, rgba(0,0,0,0.55) 60%, rgba(52,152,219,0.25) 100%);
+  backdrop-filter: blur(2px);
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
-  padding: 1rem;
+  max-width: 900px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 18px;
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 3.2rem;
+  font-weight: 900;
+  font-family: 'Fantasy';
+  margin-bottom: 1.2rem;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.45);
+  letter-spacing: 1.5px;
+  color: #fff;
   opacity: 0;
   animation: slideLeft 1s ease-out forwards;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  font-size: 1.35rem;
+  font-family: 'Cursive';
+  margin-bottom: 2.2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  color: #e0e0e0;
   opacity: 0;
   animation: fadeIn 1.2s 0.5s ease-out forwards;
 }
+
 @keyframes slideLeft {
   from {
     opacity: 0;
@@ -73,27 +88,42 @@
   }
 }
 
-
 .hero-cta {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--button-bg);
-  color: white;
+  padding: 1rem 2.2rem;
+  background: linear-gradient(90deg, var(--button-bg) 60%, var(--button-hover) 100%);
+  color: #fff;
   text-decoration: none;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  border-radius: 32px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 12px rgba(52,152,219,0.18);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  border: none;
 }
 
 .hero-cta:hover {
-    transform: translateY(-2px);
-  background-color: var(--button-hover);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 6px 24px rgba(52,152,219,0.25);
 }
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2rem;
+
+@media (max-width: 900px) {
+  .hero-section {
+    height: 340px;
+    border-radius: 0 0 18px 18px;
   }
-  .hero-content p {
+  .hero-content {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .hero-cta {
+    padding: 0.7rem 1.2rem;
     font-size: 1rem;
   }
 }
